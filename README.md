@@ -7,7 +7,7 @@
 
 ## Obsah
 
-1. [Úvod](#1.)
+1. [Úvod](#Úvod)
 2. [Hardware](#hardware)
 3. [Software](#software)
 4. [Popis kódu a simulace](#Popis_kódu_a_simulace)
@@ -17,7 +17,7 @@
 
 
 
-## 1. ## Úvod
+## Úvod
 
 Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazvukových parkovacích senzorů HC-SR04 a mikrokontroleru ATmega328P. Senzory HC-SR04 se nacházejí na přední a zadní straně auta, kde měří vzdálenosti od možné překážky. Pomocí dalších komponentů (displej, akustické signalizace a indikace vzdálenosti na LED panelu) je realizováno uživatelské rozhraní. 
 
