@@ -10,7 +10,7 @@
 1. [Úvod](#Úvod)
 2. [Hardware](#hardware)
 3. [Software](#software)
-5. [Vývojový diagram](#Vývový_diagram)
+5. [Vývojový diagram](#Vývojový_diagram)
 4. [Popis kódu a simulace](#Popis_kódu_a_simulace)
 5. [Video](#Video)
 6. [References](#References)
