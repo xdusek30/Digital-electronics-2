@@ -37,7 +37,7 @@ Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazv
 
 ## Vývojový_diagram
 
-![Vývojový_diagram](v3_Vývojový_diagram.jpg)
+![Vývojový_diagram](Labs/project/Pictures/v3_Vývojový_diagram.jpg)
 
 ## Popis_kódu_a_simulace
 
