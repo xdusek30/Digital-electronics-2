@@ -11,7 +11,7 @@
 2. [Hardware](#hardware)
 3. [Software](#software)
 4. [Video](#Video)
-5. [Cíle projektu](#cíle projektu)
+5. [Cíle projektu](#Cíle_projektu)
 6. [References](#References)
 
 
