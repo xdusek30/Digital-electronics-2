@@ -5,6 +5,17 @@
 | Dušek Filip | [Link to GitHub project folder](https://github.com/xdusek30/Digital-electronics-2.git) |
 | Marek Svoboda | [Link to GitHub project folder](https://github.com/xsvobo1q/Digital-electronics-2.git) |
 
+## Content
+
+1. [Úvod](#Úvod)
+2. [Hardware](#hardware)
+3. [Software](#software)
+4. [Video](#Video)
+5. [Cíle projektu](#Cíle projektu)
+6. [References](#References)
+
+
+
 ## Úvod
 
 Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazvukových parkovacích senzorů HC-SR04 a mikrokontroleru ATmega328P. Senzory HC-SR04 se nacházejí na přední a zadní straně auta, kde měří vzdálenosti od možné překážky. Pomocí dalších komponentů (displej, akustické signalizace a indikace vzdálenosti na LED panelu) je realizováno uživatelské rozhraní. 
