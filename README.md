@@ -23,7 +23,11 @@ Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazv
 
 ## Hardware
 - Arduino uno
-- 
+- LCD diplay 16x2
+- Ultrazvukové senzory  HC-SR04
+- Signaliaze LED bary grafy
+- Bzučák 5V 2,3kHz
+
 ## Software
 - Atmel studio 7
 - SimulIDE
