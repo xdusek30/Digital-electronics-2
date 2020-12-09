@@ -12,6 +12,7 @@
 3. [Software](#software)
 5. [Vývojový diagram](#Vývojový_diagram)
 4. [Popis kódu a simulace](#Popis_kódu_a_simulace)
+5. [Dokumentace](#Dokumentace)
 5. [Video](#Video)
 6. [References](#References)
 
@@ -64,6 +65,10 @@ Poté pro každou ze vzdáleností vyhodnotí počet rozsvícených signalizačn
 Pozn.: V SimulIDE je realizován audio výstup pomocí LED diody, jelikož zde audio výstup není funkční.
 
 #### Reálné zapojení
+
+
+## Dokumentace
+**Odkaz na dokumntaci**
 
 ## Video
 
