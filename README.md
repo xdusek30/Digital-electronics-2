@@ -12,7 +12,7 @@
 3. [Software](#software)
 4. [Popis kódu a simulace](#Popis_kódu_a_simulace)
 5. [Video](#Video)
-6. [Cíle projektu](#Cile projektu)
+6. [Cíle projektu](#Cíle_projektu)
 7. [References](#References)
 
 
@@ -39,7 +39,7 @@ Write your text here.
 
 
 
-## Cíle projektu
+## Cíle_projektu
 
 Write your text here.
 
