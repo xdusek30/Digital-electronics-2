@@ -62,8 +62,12 @@ Poté pro každou ze vzdáleností vyhodnotí počet rozsvícených signalizačn
 ![Zapojení v SimulIDE](Zapojení_SimulIDE.PNG)
 
 Pozn.: V SimulIDE je realizován audio výstup pomocí LED diody, jelikož zde audio výstup není funkční.
+
+#### Reálné zapojení
+
 ## Video
 
+**Odkaz na video**
 Write your text here.
 
 
