@@ -58,7 +58,10 @@ změnu rychlosti pípání bzučáku.
 Poté pro každou ze vzdáleností vyhodnotí počet rozsvícených signalizačních diod a hodnoty vypíše na UART a LCD displej s přesností na jedno desetinné místo. S větší přesností nemá smysl vypisovat, protože senzor sám o sobě má přesnost kolem 2 mm.
 
 #### Zapojení v SimulIDE
+
 ![Zapojení v SimulIDE](Zapojení_SimulIDE.PNG)
+
+Pozn.: V SimulIDE je realizován audio výstup pomocí LED diody, jelikož zde audio výstup není funkční.
 ## Video
 
 Write your text here.
