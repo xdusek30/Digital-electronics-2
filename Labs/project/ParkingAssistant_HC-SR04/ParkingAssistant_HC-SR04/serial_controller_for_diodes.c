@@ -10,21 +10,21 @@
 #include "gpio.h"
 #include "serial_controller_for_diodes.h"
 
-
 /* Variables ---------------------------------------------------------*/
 
 
-// Active-high position 0 to 7
+// Active-high position 0 to 8
 uint8_t diode_number[] = {
 	// d7d6d5d4....
-	0b00000001,   // Position 0 = >35 cm
-	0b00000011,   // Position 1 = 30 cm 
-	0b00000111,	  // Position 2 = 25 cm
-	0b00001111,   // Position 3 = 20 cm
-	0b00011111,   // Position 4 = 15 cm
-	0b00111111,   // Position 5 = 10 cm
-	0b01111111,	  // Position 6 = 5 cm
-	0b11111111};   // Position 7 = <5 cm
+	0b00000000,
+	0b00000001,   
+	0b00000011,   
+	0b00000111,	  
+	0b00001111,  
+	0b00011111,  
+	0b00111111,  
+	0b01111111,	  
+	0b11111111};  
 
 
 

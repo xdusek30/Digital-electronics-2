@@ -20,7 +20,8 @@
 #include "timer.h"
 #include <stdbool.h>
 
-#define sensTrigFront PB2
+/*          Defines of pins            */
+#define sensTrigFront PB2	
 #define sensEchoFront PD3
 
 #define sensTrigRear PB3
@@ -28,15 +29,18 @@
 
 #define buzzer PB4
 
-volatile int beepTiming = 0;
+/*          Defines of variables       */
+volatile unsigned int beepTiming = 0;
 volatile uint8_t trigEnable = 1;
 volatile uint8_t averaging = 0;
 volatile float distanceFront = 0;
 volatile float distanceRear = 0;
+volatile float distance = 0;
 uint8_t mux = 1;
-bool help = true;
+volatile bool help = true;	// help variable for Echo time measuring
 
-int displayValues(float distance, float distanceFront);
+/*          Declaration of displaying function           */
+int displayValues(float distanceRear, float distanceFront);
 
 int main(void)
 {
@@ -46,7 +50,7 @@ int main(void)
 	lcd_gotoxy(2, 1);
 	lcd_puts("jedes lip...");
 	_delay_ms(1000);
-/*	lcd_clrscr();*/
+	lcd_clrscr();
 	lcd_puts("Front:");
 	lcd_gotoxy(0, 1);
 	lcd_puts("Rear:");
@@ -55,10 +59,13 @@ int main(void)
 	lcd_gotoxy(14, 1);
 	lcd_puts("cm");
 
+/*    Initialization of bar graphs     */
 	DIODE_init();
 	
+/*    Initialization of UART          */	
 	uart_init(UART_BAUD_SELECT(9600, F_CPU));
-	
+
+/*    Pins configuration              */	
 	GPIO_config_input_nopull(&DDRD, sensEchoFront);
 	GPIO_config_input_nopull(&DDRD, sensEchoRear);
 	
@@ -71,13 +78,18 @@ int main(void)
 	GPIO_config_output(&DDRB, buzzer);
 	GPIO_write_low(&PORTB, buzzer);
 	
+/*    Enable overflow from TIMER 1 - buzzer timing    */
 	TIM1_overflow_1s();
 	TIM1_overflow_interrupt_enable();
 	
-	EIMSK |= (1<<INT1);	// interrupt enable on INT1
-	EICRA &= ~(1<<ISC11); EICRA |= (1<<ISC10);
-	EIMSK |= (1<<INT0);	// interrupt enable on INT0
-	EICRA &= ~(1<<ISC01); EICRA |= (1<<ISC00);
+/*	  Enable overflow from TIMER 0 - measuring of Echo length     */
+	TIM0_overflow_16us();
+	TIM0_overflow_interrupt_enable();
+	
+	EIMSK |= (1<<INT1);								// interrupt enable on INT1
+	EICRA &= ~(1<<ISC11); EICRA |= (1<<ISC10);		// interrupt when change is on INT1
+	EIMSK |= (1<<INT0);								// interrupt enable on INT0
+	EICRA &= ~(1<<ISC01); EICRA |= (1<<ISC00);		// interrupt when change is on INT0
 	
 	sei();
 	
@@ -86,42 +98,47 @@ int main(void)
     {
 		if ((mux == 1) & (trigEnable == 1))
 		{	
-			trigEnable = 0;
-			help = true;
-			_delay_us(50);
-			GPIO_write_high(&PORTB, sensTrigFront);
-			_delay_us(10);
-			GPIO_write_low(&PORTB, sensTrigFront);
-			
- 			if (averaging == 4)
+ 			if (averaging == 5)
  			{
 				distanceFront = distanceFront/averaging;
 	 			averaging = 0;
-	 			mux++;
- 			}
+ 	 			mux++;
+ 			}else
+			{
+				trigEnable = 0;
+				help = true;
+				/* triggering of front sensor */
+				_delay_us(50);
+				GPIO_write_high(&PORTB, sensTrigFront);
+				_delay_us(10);
+				GPIO_write_low(&PORTB, sensTrigFront);	 
+			 }
 			
 		}
+		
 		if ((mux == 2) & (trigEnable == 1))
-		{
-			trigEnable = 0;
-			help = true;
-			_delay_us(50);
-			GPIO_write_high(&PORTB, sensTrigRear);
-			_delay_us(10);
-			GPIO_write_low(&PORTB, sensTrigRear);		
-			
-			if (averaging == 4)
+		{	
+			if (averaging == 5)
 			{
 				distanceRear = distanceRear/averaging;
 				averaging = 0;	
-				mux++;		
+ 				mux++;		
+			} else
+			{
+				trigEnable = 0;
+				help = true;
+				/* triggering of rear sensor */
+				_delay_us(50);
+				GPIO_write_high(&PORTB, sensTrigRear);
+				_delay_us(10);
+				GPIO_write_low(&PORTB, sensTrigRear);
 			}
-			
 		}
+		
 		if (mux == 3)
 		{
-			beepTiming = displayValues(distanceRear, distanceFront);
-			distanceFront = 0;
+			beepTiming = displayValues(distanceRear, distanceFront);	// function that display values on LCD, UART, LEDs
+			distanceFront = 0;												  // and returns value for beep timer
 			distanceRear = 0;
 			mux = 1;
 		}
@@ -129,39 +146,33 @@ int main(void)
     }
 }
 
+/* ISR for Echo from front sensor */
 ISR(INT1_vect)
 {
 	
 	if (help)
 	{
-		TIM0_overflow_16ms();
 		help = false;
 	}
 	else
 	{
-		TIM0_stop();
-		distanceFront += TCNT0;
-		TCNT0 = 0;
-		averaging++;
+ 		averaging++;
 		trigEnable = 1;
 		help = true;
 	}
 	
 }
 
+/* ISR for Echo from rear sensor */
 ISR(INT0_vect)
 {
 
 	if (help)
 	{
-		TIM0_overflow_16ms();
 		help = false;
 	}
 	else
 	{
-		TIM0_stop();
-		distanceRear += TCNT0;
-		TCNT0 = 0;
 		averaging++;
 		trigEnable = 1;
 		help = true;
@@ -169,6 +180,22 @@ ISR(INT0_vect)
 
 }
 
+/*    ISR for measuring Echo pulse   */
+ISR(TIMER0_OVF_vect)
+{
+	if (!help)
+	{	
+		if (mux == 1)
+		{
+			distanceFront += 16;
+		}else if(mux == 2)
+		{
+			distanceRear += 16;
+		}
+	}
+}
+
+/*    ISR for timer, that turning buzzer off/on   */
 ISR(TIMER1_OVF_vect)
 {
 	GPIO_toggle(&PORTB, buzzer);
@@ -181,10 +208,10 @@ int displayValues(float distanceRear, float distanceFront){
 		
 	char uartString[50];
 	char dispString[50];
-	uint16_t dist = 0;	
+	float dist = 0;	
 
-	distanceRear = distanceRear/3;
-	distanceFront = distanceFront/3;
+	distanceRear = (distanceRear/2) * 0.0343;
+	distanceFront = (distanceFront/2) * 0.0343;
 	
 	if (distanceRear < distanceFront)
 	{
@@ -195,15 +222,15 @@ int displayValues(float distanceRear, float distanceFront){
 		dist = distanceFront;
 	}
 	
-	if ((distanceFront < 7) | (distanceRear < 7))
+	if ((distanceFront <= 10) | (distanceRear <= 10))
 	{
+		TIM1_overflow_interrupt_disable();
 		GPIO_write_high(&PORTB, buzzer);
-		TIM1_overflow_interrupt_disable();
 	} 
-	else if((distanceFront > 40) & (distanceRear > 40))
+	else if((distanceFront > 50) & (distanceRear > 50))
 	{
-		GPIO_write_low(&PORTB, buzzer);
 		TIM1_overflow_interrupt_disable();
+		GPIO_write_low(&PORTB, buzzer);
 	}
 	else
 	{
@@ -213,91 +240,94 @@ int displayValues(float distanceRear, float distanceFront){
 
 	// displaying values on display 
 
-	sprintf(uartString,"Front: %0.2lf  ||  Rear: %0.2lf \r\n",distanceFront, distanceRear);
+	sprintf(uartString,"Front: %0.1lf  ||  Rear: %0.1lf \r\n",distanceFront, distanceRear);
 	uart_puts(uartString);
 	
-	sprintf(dispString,"%0.2f",distanceFront);
- 	lcd_gotoxy(8, 0);
- 	lcd_puts("           ");
-	lcd_gotoxy(8, 0);
+	sprintf(dispString,"%0.1f",distanceFront);
+ 	lcd_gotoxy(7, 0);
+ 	lcd_puts("       ");
+	lcd_gotoxy(7, 0);
 	lcd_puts(dispString);
 	
-	sprintf(dispString,"%0.2f",distanceRear);
-	lcd_gotoxy(8, 1);
-	lcd_puts("           ");
-	lcd_gotoxy(8, 1);
+	sprintf(dispString,"%0.1f",distanceRear);
+	lcd_gotoxy(7, 1);
+	lcd_puts("       ");
+	lcd_gotoxy(7, 1);
 	lcd_puts(dispString);
 	
 	
 	//displaying the distance of the front sensor on bar graph
 	//and distance dependent audio signal
 	
-	if (distanceFront < 7)
+	if (distanceFront <= 10)
+	{
+		DIODE_FRONT(8);
+	}
+	if ((distanceFront > 10) & (distanceFront <= 15))
 	{
 		DIODE_FRONT(7);
 	}
-	else if((distanceFront > 7) & (distanceFront < 10))
+	else if((distanceFront > 15) & (distanceFront <= 20))
 	{
 		DIODE_FRONT(6);
 	}
-	else if((distanceFront > 10) & (distanceFront < 15))
+	else if((distanceFront > 20) & (distanceFront <= 25))
 	{
 		DIODE_FRONT(5);
 	}
-	else if((distanceFront > 15) & (distanceFront < 20))
+	else if((distanceFront > 25) & (distanceFront <= 30))
 	{
 		DIODE_FRONT(4);
-		beepTiming = 52000;
 	}
-	else if((distanceFront > 20) & (distanceFront < 25))
+	else if((distanceFront > 30) & (distanceFront <= 35))
 	{
 		DIODE_FRONT(3);
-		beepTiming = 46000;
 	}
-	else if((distanceFront > 25) & (distanceFront < 30))
+	else if((distanceFront > 35) & (distanceFront <= 40))
 	{
 		DIODE_FRONT(2);
-		beepTiming = 40000;
 	}
-	else if((distanceFront > 30) & (distanceFront < 35))	
+	else if((distanceFront > 40) & (distanceFront <= 50))	
 	{
 		DIODE_FRONT(1);
-		beepTiming = 34000;
 	}
 	else
 	{
 		DIODE_FRONT(0);
-		beepTiming = 28000;
 	}
 	
 	
 	//displaying the distance of the rear sensor on bar graph
 	
-	if (distanceRear < 5)
+	if (distanceRear <= 10)
+	{
+		DIODE_REAR(8);
+	}
+	if ((distanceRear > 10) & (distanceRear <= 15))
 	{
 		DIODE_REAR(7);
 	}
-	else if((distanceRear > 5) & (distanceRear < 10))
+	else if((distanceRear > 15) & (distanceRear <= 20))
 	{
 		DIODE_REAR(6);
 	}
-	else if((distanceRear > 10) & (distanceRear < 15))
+	else if((distanceRear > 20) & (distanceRear <= 25))
 	{
 		DIODE_REAR(5);
 	} 
-	else if((distanceRear > 15) & (distanceRear < 20))
+	else if((distanceRear > 25) & (distanceRear <= 30))
 	{
 		DIODE_REAR(4);
 	} 
-	else if((distanceRear > 20) & (distanceRear < 25))
+	else if((distanceRear > 30) & (distanceRear <= 35))
 	{
 		DIODE_REAR(3);
 	} 
-	else if((distanceRear > 25) & (distanceRear < 30))
+	else if((distanceRear > 35) & (distanceRear <= 40))
 	{
 		DIODE_REAR(2);
 	} 
-	else if((distanceRear > 30) & (distanceRear < 35))
+	else if((distanceRear > 40) & (distanceRear <= 50))
 	{
 		DIODE_REAR(1);
 	} 
@@ -308,33 +338,29 @@ int displayValues(float distanceRear, float distanceFront){
 	
 	//distance dependent audio signal
 	
-	if ((dist > 5) & (dist < 10))
+	if ((dist > 10) & (dist <= 15))
 	{
 		beepTiming = 62000;
 	}
-	else if ((dist > 10) & (dist < 15))
+	else if ((dist > 15) & (dist <= 20))
 	{
 		beepTiming = 58000;
 	}
-	else if ((dist > 15) & (dist < 20))
+	else if ((dist > 20) & (dist <= 25))
 	{
 		beepTiming = 52000;
 	}
-	else if ((dist > 20) & (dist < 25))
+	else if ((dist > 25) & (dist <= 30))
 	{
 		beepTiming = 46000;
 	}
-	else if ((dist > 25) & (dist < 30))
+	else if ((dist > 35) & (dist <= 40))
 	{
 		beepTiming = 40000;
 	}
-	else if ((dist > 30) & (dist < 35))
+	else if ((dist > 40) & (dist <= 50))
 	{
 		beepTiming = 34000;
-	}
-	else
-	{
-		beepTiming = 28000;
 	}
 
 	return beepTiming;
