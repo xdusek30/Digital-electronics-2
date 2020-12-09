@@ -1,12 +1,10 @@
 # Asistent pro parkování auta
 
-### Team 
-Dušek Filip[Link to your GitHub project folder](https://github.com/xdusek30/Digital-electronics-2.git)
-Marek Svoboda[Link to your GitHub project folder](https://github.com/xsvobo1q/Digital-electronics-2.git)
+### Tým 
 | **Tým** | **Odkaz na github** |
 | :-: | :-: |
-| Dušek Filip | [Link to your GitHub project folder](https://github.com/xdusek30/Digital-electronics-2.git) |
-| Marek Svoboda | [Link to your GitHub project folder](https://github.com/xsvobo1q/Digital-electronics-2.git) |
+| Dušek Filip | [Link to GitHub project folder](https://github.com/xdusek30/Digital-electronics-2.git) |
+| Marek Svoboda | [Link to GitHub project folder](https://github.com/xsvobo1q/Digital-electronics-2.git) |
 
 
 ### Project objectives
