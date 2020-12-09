@@ -11,12 +11,14 @@ Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazv
 
 ## Hardware
 - Arduino uno
-
+- 
+## Software
+- Atmel studio 7
+- SimulIDE
 
 
 ## Popis kódu a simulace
 
-Write your text here.
 
 
 ## Video
@@ -25,11 +27,11 @@ Write your text here.
 
 
 
-### Cíle projektu
+## Cíle projektu
 
 Write your text here.
 
 
 ## References
 
-1. Write your text here.
+1. https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf
