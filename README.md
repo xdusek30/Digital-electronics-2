@@ -29,7 +29,7 @@ Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazv
 - SimulIDE
 
 
-## Popis kódu a simulace
+## Popis_kódu_a_simulace
 
 
 
