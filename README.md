@@ -10,9 +10,9 @@
 1. [Úvod](#Úvod)
 2. [Hardware](#hardware)
 3. [Software](#software)
-4. [Popis kódu a simulace](#Popis)
+4. [Popis kódu a simulace](#Popis kódu a simulace)
 5. [Video](#Video)
-6. [Cíle projektu](#Cíle)
+6. [Cíle projektu](#Cíle projektu)
 7. [References](#References)
 
 
