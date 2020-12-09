@@ -69,7 +69,7 @@ Pozn.: V SimulIDE je realizován audio výstup pomocí LED diody, jelikož zde a
 
 ## Dokumentace
 **Odkaz na dokumntaci**
- [Dokumentace generovaná doxygenem](#Labs/project/pdf_documentation.pdf)
+ [Dokumentace generovaná doxygenem](#pdf_documentation.pdf)
 
 ## Video
 
