@@ -3,8 +3,10 @@
 ### Team 
 Dušek Filip[Link to your GitHub project folder](https://github.com/xdusek30/Digital-electronics-2.git)
 Marek Svoboda[Link to your GitHub project folder](https://github.com/xsvobo1q/Digital-electronics-2.git)
-
-[Link to your GitHub project folder](http://github.com/xxx)
+| **Tým** | **Odkaz na github** |
+| :-: | :-: |
+| Dušek Filip | [Link to your GitHub project folder](https://github.com/xdusek30/Digital-electronics-2.git) |
+| Marek Svoboda | [Link to your GitHub project folder](https://github.com/xsvobo1q/Digital-electronics-2.git) |
 
 
 ### Project objectives
