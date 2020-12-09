@@ -2,7 +2,7 @@
 
 | **Tým** | **Odkaz na github** |
 | :-: | :-: |
-| Dušek Filip | [Link to GitHub project folder](https://github.com/xdusek30/Digital-electronics-2/Labs/project.git) |
+| Dušek Filip | [Link to GitHub project folder](https://github.com/xdusek30/Digital-electronics-2/tree/master/Labs/project) |
 | Marek Svoboda | [Link to GitHub project folder](https://github.com/xsvobo1q/Digital-electronics-2.git) |
 
 ## Obsah
