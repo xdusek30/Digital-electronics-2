@@ -35,3 +35,4 @@ Write your text here.
 ## References
 
 1. https://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf
+2. https://howtomechatronics.com/tutorials/arduino/ultrasonic-sensor-hc-sr04/
