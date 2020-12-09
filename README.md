@@ -37,7 +37,7 @@ Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazv
 
 ## Vývojový_diagram
 
-![Multi-function shield](v3_Vývojový_diagram.jpg)
+![Vývojový_diagram](v3_Vývojový_diagram.jpg)
 
 ## Popis_kódu_a_simulace
 
@@ -57,7 +57,8 @@ Zobrazovací funkce vyhodnotí menší z měřených vzdáleností a podle této
 změnu rychlosti pípání bzučáku.
 Poté pro každou ze vzdáleností vyhodnotí počet rozsvícených signalizačních diod a hodnoty vypíše na UART a LCD displej s přesností na jedno desetinné místo. S větší přesností nemá smysl vypisovat, protože senzor sám o sobě má přesnost kolem 2 mm.
 
-
+#### Zapojení v SimulIDE
+![Zapojení v SimulIDE](Zapojení_SimulIDE.PNG)
 ## Video
 
 Write your text here.
