@@ -12,8 +12,7 @@
 3. [Software](#software)
 4. [Popis kódu a simulace](#Popis_kódu_a_simulace)
 5. [Video](#Video)
-6. [Cíle projektu](#Cíle_projektu)
-7. [References](#References)
+6. [References](#References)
 
 
 
@@ -22,6 +21,7 @@
 Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazvukových parkovacích senzorů HC-SR04 a mikrokontroleru ATmega328P. Senzory HC-SR04 se nacházejí na přední a zadní straně auta, kde měří vzdálenosti od možné překážky. Pomocí dalších komponentů (displej, akustické signalizace a indikace vzdálenosti na LED panelu) je realizováno uživatelské rozhraní. 
 
 ## Hardware
+
 - Arduino uno
 - LCD diplay 16x2
 - Ultrazvukové senzory  HC-SR04
@@ -29,6 +29,7 @@ Tento projekt se zabívá realizací parkovacího asistenta pomocí dvou ultrazv
 - Bzučák 5V 2,3kHz
 
 ## Software
+
 - Atmel studio 7
 - SimulIDE
 - Doxygen
@@ -43,9 +44,6 @@ Write your text here.
 
 
 
-## Cíle_projektu
-
-Write your text here.
 
 
 ## References
