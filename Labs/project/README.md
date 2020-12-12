@@ -66,6 +66,7 @@ Pozn.: V SimulIDE je realizován audio výstup pomocí LED diody, jelikož zde a
 
 #### Reálné zapojení
 
+![Realné zapojení](Pictures/Realne_zapojeni.jpg)
 
 ## Dokumentace
 **Odkaz na dokumntaci**
