@@ -75,7 +75,10 @@ Pozn.: V SimulIDE je realizován audio výstup pomocí LED diody, jelikož zde a
 **Poznámky pro video:**
 - Ve videu si nechází simulace v SimulIDE a simulace reálného zapojení.
 - Kvůli nefunkčnímu dipleji a nedostatečnému množství součástek je reálné zapojení ve videu demonstrováno zvukem z bzučáku a signaliazce předního senzoru.
+
+
 **Odkaz na video**
+
 [Odkaz na video](https://youtu.be/WLFjbmJf0p0)
 
 
