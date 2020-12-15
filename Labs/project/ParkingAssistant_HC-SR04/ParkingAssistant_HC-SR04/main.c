@@ -268,10 +268,7 @@ int displayValues(float distanceRear, float distanceFront){
 	}
 
 
-	// displaying values on display 
-	
-// 	sprintf(uartString,"Front: %0.1lf  ||  Rear: %0.1lf \r\n",distanceFront, distanceRear);
-// 	uart_puts(uartString);
+	// displaying values on display and uart
 	
 	if (distanceFront > 200)
 	{
